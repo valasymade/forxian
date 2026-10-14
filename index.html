@@ -1,0 +1,195 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>CLICK ME</title>
+    <style>
+body { margin: 18px; background: #ffff99; font-family: "Comic Sans MS", "Comic Sans", cursive; }
+[hidden] { display: none !important; }
+.gift-stage { text-align: center; margin: 25px auto 10px; }
+.gift-button {
+  position: relative;
+  display: block;
+  width: min(300px, 100%);
+  aspect-ratio: 1;
+  margin: auto;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  cursor: pointer;
+}
+.gift-button:focus-visible { outline: 5px dashed blue; outline-offset: 4px; }
+.click-ring { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; animation: circle-gift 9s linear infinite; }
+.click-ring text { fill: #ff0000; font: 900 30px "Comic Sans MS", cursive; }
+.gift-box {
+  position: absolute;
+  width: 125px;
+  height: 105px;
+  left: 50%;
+  top: 55%;
+  transform: translate(-50%, -50%) rotate(-5deg);
+  background: #ff39c8;
+  border: 4px solid #8a0067;
+  box-shadow: 7px 7px 0 #00dede;
+}
+.gift-box::after { content: ""; position: absolute; top: 0; bottom: 0; left: 46px; width: 27px; background: yellow; border-inline: 3px solid #c89a00; }
+.gift-lid { position: absolute; left: -11px; right: -11px; top: -15px; height: 28px; background: #ff39c8; border: 4px solid #8a0067; z-index: 1; }
+.gift-lid::after { content: ""; position: absolute; top: 0; bottom: 0; left: 53px; width: 27px; background: yellow; border-inline: 3px solid #c89a00; }
+.gift-bow { position: absolute; left: 50%; top: -79px; transform: translateX(-50%); font-size: 70px; z-index: 2; }
+.gift-button:hover .gift-box { transform: translate(-50%, -50%) rotate(7deg) scale(1.08); }
+.gift-surprise { padding: 20px 10px; }
+.gift-surprise h2 { margin: 0 0 20px; color: red; font: 900 clamp(28px, 6vw, 56px) "Comic Sans MS", cursive; text-shadow: 3px 3px lime; transform: rotate(-3deg); }
+.gift-surprise img { display: block; margin: auto; max-width: 90%; height: auto; border: 8px ridge #ff00d4; box-shadow: 8px 8px cyan; }
+.confetti-piece { position: fixed; z-index: 100; pointer-events: none; width: 10px; height: 16px; }
+@keyframes circle-gift { to { transform: rotate(360deg); } }
+@media (prefers-reduced-motion: reduce) { .click-ring { animation: none; } }
+.meaning-button {
+  display: block;
+  margin: 28px auto 0;
+  padding: 12px 18px;
+  max-width: 100%;
+  background: lime;
+  color: blue;
+  border: 6px outset yellow;
+  font: bold 20px "Comic Sans MS", cursive;
+  cursor: pointer;
+  box-shadow: 5px 5px #ff00d4;
+}
+.meaning-button:active { border-style: inset; }
+#meaning-popup, #confused-popup, #lie-popup {
+  box-sizing: border-box;
+  width: min(600px, calc(100% - 32px));
+  max-height: calc(100dvh - 32px);
+  padding: 40px 22px 28px;
+  background: #ffff99;
+  border: 9px ridge #ff00d4;
+  box-shadow: 8px 8px cyan;
+  text-align: center;
+}
+#meaning-popup::backdrop, #confused-popup::backdrop, #lie-popup::backdrop { background: rgb(0 0 0 / 75%); }
+#meaning-message, #confused-message, #lie-message { color: blue; font: bold clamp(22px, 5vw, 32px) "Comic Sans MS", cursive; text-shadow: 2px 2px lime; }
+#final-message { margin: 28px auto 0; color: blue; font: bold 24px "Comic Sans MS", cursive; }
+#meaning-popup img { display: block; width: 220px; max-width: 100%; height: auto; margin: auto; border: 4px dashed red; box-sizing: border-box; }
+.close-popup { position: absolute; top: 5px; right: 8px; color: red; background: yellow; border: 3px outset silver; font-size: 28px; cursor: pointer; }
+    </style>
+  </head>
+  <body>
+    <section class="gift-stage" aria-label="A very suspicious present">
+      <button class="gift-button" id="gift" type="button" aria-label="Open the gift" aria-controls="gift-surprise" aria-expanded="false">
+        <svg class="click-ring" viewBox="0 0 300 300" aria-hidden="true">
+          <defs><path id="circle-text" d="M 150,150 m -115,0 a 115,115 0 1,1 230,0 a 115,115 0 1,1 -230,0"/></defs>
+          <text><textPath href="#circle-text" textLength="722" lengthAdjust="spacing">CLICK ME ★ CLICK ME ★ CLICK ME ★ </textPath></text>
+        </svg>
+        <span class="gift-box" aria-hidden="true"><span class="gift-bow">🎀</span><span class="gift-lid"></span></span>
+      </button>
+      <div id="gift-surprise" class="gift-surprise" hidden aria-live="polite" tabindex="-1">
+        <h2>I'M A DUDE, DUDE!!!!</h2>
+        <img id="cat-gif" src="https://media.tenor.com/568AxX6HeFoAAAAM/yes-yescat.gif" alt="The cat says yes." width="220" height="231">
+        <button id="meaning-button" class="meaning-button" type="button" aria-haspopup="dialog" aria-controls="meaning-popup">WHAT DOES THIS MEAN FOR YOU?</button>
+        <button id="confused-button" class="meaning-button" type="button" aria-haspopup="dialog" aria-controls="confused-popup" hidden>I'M SO CONFUSED BRO WHAT</button>
+        <button id="lie-button" class="meaning-button" type="button" aria-haspopup="dialog" aria-controls="lie-popup" hidden>OMG???? DID YOU LIE ABOUT IT ALL?</button>
+        <p id="final-message" hidden tabindex="-1">plz go back to dms bro i hated coding this.</p>
+      </div>
+    </section>
+    <dialog id="meaning-popup" aria-labelledby="meaning-message">
+      <button id="close-popup" class="close-popup" type="button" aria-label="Close popup">×</button>
+      <p id="meaning-message">I'M ME, I'M STILL BACHIRA. I AM STILL VALASY. . . just I'm dude'd out dude.</p>
+      <img src="https://media.tenor.com/n6y8YYUB74YAAAAM/cats.gif" alt="Cats." loading="lazy">
+    </dialog>
+    <dialog id="confused-popup" aria-labelledby="confused-message">
+      <button id="close-confused-popup" class="close-popup" type="button" aria-label="Close popup">×</button>
+      <p id="confused-message">Big Bro really Big Bachira. this was a headache to keep up for so long.</p>
+    </dialog>
+    <dialog id="lie-popup" aria-labelledby="lie-message">
+      <button id="close-lie-popup" class="close-popup" type="button" aria-label="Close popup">×</button>
+      <p id="lie-message">no bro i just said i'm me just dude'ing out, dude.</p>
+    </dialog>
+    <script>
+const gift = document.querySelector('#gift');
+const surprise = document.querySelector('#gift-surprise');
+const cat = document.querySelector('#cat-gif');
+const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+
+cat.addEventListener('error', () => { cat.hidden = true; });
+
+function explode(x, y) {
+  if (reducedMotion.matches) return;
+  const colors = ['#ff0000', '#ff00d4', '#00ffff', '#ffff00', '#00ff00', '#0000ff'];
+  for (let i = 0; i < 110; i++) {
+    const piece = document.createElement('span');
+    piece.className = 'confetti-piece';
+    piece.setAttribute('aria-hidden', 'true');
+    piece.style.background = colors[i % colors.length];
+    piece.style.left = `${x}px`;
+    piece.style.top = `${y}px`;
+    document.body.append(piece);
+    const angle = Math.random() * Math.PI * 2;
+    const distance = 100 + Math.random() * 330;
+    const dx = Math.cos(angle) * distance;
+    const dy = Math.sin(angle) * distance;
+    const spin = Math.random() * 1080 - 540;
+    const animation = piece.animate([
+      { transform: 'translate(-50%, -50%) rotate(0deg)', opacity: 1 },
+      { transform: `translate(${dx}px, ${dy - 100}px) rotate(${spin / 2}deg)`, opacity: 1, offset: 0.4 },
+      { transform: `translate(${dx * 1.4}px, ${dy + 500}px) rotate(${spin}deg)`, opacity: 0 }
+    ], { duration: 1400 + Math.random() * 700, easing: 'cubic-bezier(.15,.6,.45,1)' });
+    animation.onfinish = () => piece.remove();
+  }
+}
+
+gift.addEventListener('click', () => {
+  const box = gift.getBoundingClientRect();
+  explode(box.left + box.width / 2, box.top + box.height / 2);
+  gift.hidden = true;
+  gift.setAttribute('aria-expanded', 'true');
+  surprise.hidden = false;
+  surprise.focus({ preventScroll: true });
+});
+
+const meaningPopup = document.querySelector('#meaning-popup');
+const confusedButton = document.querySelector('#confused-button');
+const confusedPopup = document.querySelector('#confused-popup');
+const lieButton = document.querySelector('#lie-button');
+const liePopup = document.querySelector('#lie-popup');
+const finalMessage = document.querySelector('#final-message');
+meaningPopup.addEventListener('close', () => {
+  if (finalMessage.hidden) confusedButton.hidden = false;
+});
+confusedPopup.addEventListener('close', () => {
+  if (finalMessage.hidden) lieButton.hidden = false;
+});
+lieButton.addEventListener('click', () => {
+  liePopup.showModal();
+});
+document.querySelector('#close-lie-popup').addEventListener('click', () => {
+  liePopup.close();
+});
+liePopup.addEventListener('close', () => {
+  document.querySelectorAll('.meaning-button').forEach((button) => { button.hidden = true; });
+  finalMessage.hidden = false;
+  finalMessage.focus({ preventScroll: true });
+});
+confusedButton.addEventListener('click', () => {
+  confusedPopup.showModal();
+});
+document.querySelector('#close-confused-popup').addEventListener('click', () => {
+  confusedPopup.close();
+});
+document.querySelector('#meaning-button').addEventListener('click', () => {
+  meaningPopup.showModal();
+});
+document.querySelector('#close-popup').addEventListener('click', () => {
+  meaningPopup.close();
+});
+[meaningPopup, confusedPopup, liePopup].forEach((popup) => popup.addEventListener('click', (event) => {
+  const bounds = popup.getBoundingClientRect();
+  if (event.target === popup &&
+      (event.clientX < bounds.left || event.clientX > bounds.right ||
+       event.clientY < bounds.top || event.clientY > bounds.bottom)) {
+    popup.close();
+  }
+}));
+    </script>
+  </body>
+</html>
