@@ -45,6 +45,11 @@ const confusedPopup = document.querySelector('#confused-popup');
 const lieButton = document.querySelector('#lie-button');
 const liePopup = document.querySelector('#lie-popup');
 const finalMessage = document.querySelector('#final-message');
+const secretGift = document.querySelector('#secret-gift');
+secretGift.addEventListener('click', () => {
+  const box = secretGift.getBoundingClientRect();
+  explode(box.left + box.width / 2, box.top + box.height / 2);
+});
 meaningPopup.addEventListener('close', () => {
   if (finalMessage.hidden) confusedButton.hidden = false;
 });
@@ -60,6 +65,7 @@ document.querySelector('#close-lie-popup').addEventListener('click', () => {
 liePopup.addEventListener('close', () => {
   document.querySelectorAll('.meaning-button').forEach((button) => { button.hidden = true; });
   finalMessage.hidden = false;
+  secretGift.hidden = false;
   finalMessage.focus({ preventScroll: true });
 });
 confusedButton.addEventListener('click', () => {

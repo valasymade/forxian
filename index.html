@@ -90,6 +90,13 @@ body { margin: 18px; background: #ffff99; font-family: "Comic Sans MS", "Comic S
         <button id="confused-button" class="meaning-button" type="button" aria-haspopup="dialog" aria-controls="confused-popup" hidden>I'M SO CONFUSED BRO WHAT</button>
         <button id="lie-button" class="meaning-button" type="button" aria-haspopup="dialog" aria-controls="lie-popup" hidden>OMG???? DID YOU LIE ABOUT IT ALL?</button>
         <p id="final-message" hidden tabindex="-1">plz go back to dms bro i hated coding this.</p>
+        <button class="gift-button" id="secret-gift" type="button" aria-label="Open the secret gift" hidden>
+          <svg class="click-ring" viewBox="0 0 300 300" aria-hidden="true">
+            <defs><path id="secret-circle-text" d="M 150,150 m -115,0 a 115,115 0 1,1 230,0 a 115,115 0 1,1 -230,0"/></defs>
+            <text><textPath href="#secret-circle-text" textLength="722" lengthAdjust="spacing">SECRET!! ★ SECRET!! ★ SECRET!! ★ </textPath></text>
+          </svg>
+          <span class="gift-box" aria-hidden="true"><span class="gift-bow">🎀</span><span class="gift-lid"></span></span>
+        </button>
       </div>
     </section>
     <dialog id="meaning-popup" aria-labelledby="meaning-message">
@@ -153,6 +160,11 @@ const confusedPopup = document.querySelector('#confused-popup');
 const lieButton = document.querySelector('#lie-button');
 const liePopup = document.querySelector('#lie-popup');
 const finalMessage = document.querySelector('#final-message');
+const secretGift = document.querySelector('#secret-gift');
+secretGift.addEventListener('click', () => {
+  const box = secretGift.getBoundingClientRect();
+  explode(box.left + box.width / 2, box.top + box.height / 2);
+});
 meaningPopup.addEventListener('close', () => {
   if (finalMessage.hidden) confusedButton.hidden = false;
 });
@@ -168,6 +180,7 @@ document.querySelector('#close-lie-popup').addEventListener('click', () => {
 liePopup.addEventListener('close', () => {
   document.querySelectorAll('.meaning-button').forEach((button) => { button.hidden = true; });
   finalMessage.hidden = false;
+  secretGift.hidden = false;
   finalMessage.focus({ preventScroll: true });
 });
 confusedButton.addEventListener('click', () => {
