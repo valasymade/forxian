@@ -50,7 +50,7 @@ body { margin: 18px; background: #ffff99; font-family: "Comic Sans MS", "Comic S
   box-shadow: 5px 5px #ff00d4;
 }
 .meaning-button:active { border-style: inset; }
-#meaning-popup, #confused-popup, #lie-popup {
+#meaning-popup, #confused-popup, #lie-popup, #birthday-popup {
   box-sizing: border-box;
   width: min(600px, calc(100% - 32px));
   max-height: calc(100dvh - 32px);
@@ -60,8 +60,17 @@ body { margin: 18px; background: #ffff99; font-family: "Comic Sans MS", "Comic S
   box-shadow: 8px 8px cyan;
   text-align: center;
 }
-#meaning-popup::backdrop, #confused-popup::backdrop, #lie-popup::backdrop { background: rgb(0 0 0 / 75%); }
-#meaning-message, #confused-message, #lie-message { color: blue; font: bold clamp(22px, 5vw, 32px) "Comic Sans MS", cursive; text-shadow: 2px 2px lime; }
+#meaning-popup::backdrop, #confused-popup::backdrop, #lie-popup::backdrop, #birthday-popup::backdrop { background: rgb(0 0 0 / 75%); }
+#meaning-message, #confused-message, #lie-message, #birthday-message { color: blue; font: bold clamp(22px, 5vw, 32px) "Comic Sans MS", cursive; text-shadow: 2px 2px lime; }
 #final-message { margin: 28px auto 0; color: blue; font: bold 24px "Comic Sans MS", cursive; }
-#meaning-popup img { display: block; width: 220px; max-width: 100%; height: auto; margin: auto; border: 4px dashed red; box-sizing: border-box; }
+#meaning-popup img, #birthday-popup img { display: block; width: 220px; max-width: 100%; height: auto; margin: auto; border: 4px dashed red; box-sizing: border-box; }
 .close-popup { position: absolute; top: 5px; right: 8px; color: red; background: yellow; border: 3px outset silver; font-size: 28px; cursor: pointer; }
+.confetti-rain { position: fixed; inset: 0; width: 100vw; height: 100dvh; max-width: none; max-height: none; margin: 0; padding: 0; border: 0; background: transparent; overflow: hidden; pointer-events: none; }
+.confetti-rain::backdrop { background: transparent; pointer-events: none; }
+.birthday-cake { width: 180px; margin: 35px auto 0; }
+.candles { display: flex; justify-content: center; gap: 25px; height: 40px; }
+.candle { position: relative; width: 12px; background: repeating-linear-gradient(45deg, cyan 0 5px, white 5px 10px); border: 2px solid blue; }
+.flame { position: absolute; width: 15px; height: 23px; top: -25px; left: -2px; background: #ff9500; border-radius: 65% 35% 60% 40%; box-shadow: inset 0 -8px yellow, 0 0 12px orange; }
+.cake-body { height: 65px; background: #ff73d6; border: 4px solid #890063; border-top: 15px solid white; border-radius: 12px 12px 0 0; box-shadow: 0 7px cyan; }
+.birthday-cake.blown-out .flame { display: none; }
+#blow-cake:disabled { opacity: .65; cursor: default; border-style: inset; }
