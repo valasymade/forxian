@@ -57,7 +57,7 @@ body { margin: 18px; background: #ffff99; font-family: "Comic Sans MS", "Comic S
   box-shadow: 5px 5px #ff00d4;
 }
 .meaning-button:active { border-style: inset; }
-#meaning-popup, #confused-popup, #lie-popup, #birthday-popup {
+#meaning-popup, #confused-popup, #lie-popup, #question-popup, #birthday-popup {
   box-sizing: border-box;
   width: min(600px, calc(100% - 32px));
   max-height: calc(100dvh - 32px);
@@ -67,8 +67,8 @@ body { margin: 18px; background: #ffff99; font-family: "Comic Sans MS", "Comic S
   box-shadow: 8px 8px cyan;
   text-align: center;
 }
-#meaning-popup::backdrop, #confused-popup::backdrop, #lie-popup::backdrop, #birthday-popup::backdrop { background: rgb(0 0 0 / 75%); }
-#meaning-message, #confused-message, #lie-message, #birthday-message { color: blue; font: bold clamp(22px, 5vw, 32px) "Comic Sans MS", cursive; text-shadow: 2px 2px lime; }
+#meaning-popup::backdrop, #confused-popup::backdrop, #lie-popup::backdrop, #question-popup::backdrop, #birthday-popup::backdrop { background: rgb(0 0 0 / 75%); }
+#meaning-message, #confused-message, #lie-message, #question-message, #birthday-message { color: blue; font: bold clamp(22px, 5vw, 32px) "Comic Sans MS", cursive; text-shadow: 2px 2px lime; }
 #final-message { margin: 28px auto 0; color: blue; font: bold 24px "Comic Sans MS", cursive; }
 #meaning-popup img, #birthday-popup img { display: block; width: 220px; max-width: 100%; height: auto; margin: auto; border: 4px dashed red; box-sizing: border-box; }
 .close-popup { position: absolute; top: 5px; right: 8px; color: red; background: yellow; border: 3px outset silver; font-size: 28px; cursor: pointer; }
@@ -98,6 +98,7 @@ body { margin: 18px; background: #ffff99; font-family: "Comic Sans MS", "Comic S
         <button id="meaning-button" class="meaning-button" type="button" aria-haspopup="dialog" aria-controls="meaning-popup">WHAT DOES THIS MEAN FOR YOU?</button>
         <button id="confused-button" class="meaning-button" type="button" aria-haspopup="dialog" aria-controls="confused-popup" hidden>I'M SO CONFUSED BRO WHAT</button>
         <button id="lie-button" class="meaning-button" type="button" aria-haspopup="dialog" aria-controls="lie-popup" hidden>OMG???? DID YOU LIE ABOUT IT ALL?</button>
+        <button id="question-button" class="meaning-button" type="button" aria-haspopup="dialog" aria-controls="question-popup" hidden>WAIT XIAN HAS 1 MORE QUESTION</button>
         <p id="final-message" hidden tabindex="-1">plz go back to dms bro i hated coding this.</p>
         <button class="gift-button" id="secret-gift" type="button" aria-label="Open the secret gift" hidden>
           <svg class="click-ring" viewBox="0 0 300 300" aria-hidden="true">
@@ -120,6 +121,10 @@ body { margin: 18px; background: #ffff99; font-family: "Comic Sans MS", "Comic S
     <dialog id="lie-popup" aria-labelledby="lie-message">
       <button id="close-lie-popup" class="close-popup" type="button" aria-label="Close popup">×</button>
       <p id="lie-message">no bro i just said i'm still me. everything i've told u was true... just that i'm not a girl.</p>
+    </dialog>
+    <dialog id="question-popup" aria-labelledby="question-message">
+      <button id="close-question-popup" class="close-popup" type="button" aria-label="Close popup">×</button>
+      <p id="question-message">u can choose big bro or big sis i genuinely dont care bro.<br><br>P.S: mayze been known.</p>
     </dialog>
     <dialog id="birthday-popup" aria-labelledby="birthday-message">
       <button id="close-birthday-popup" class="close-popup" type="button" aria-label="Close popup">×</button>
@@ -178,6 +183,8 @@ const confusedButton = document.querySelector('#confused-button');
 const confusedPopup = document.querySelector('#confused-popup');
 const lieButton = document.querySelector('#lie-button');
 const liePopup = document.querySelector('#lie-popup');
+const questionButton = document.querySelector('#question-button');
+const questionPopup = document.querySelector('#question-popup');
 const finalMessage = document.querySelector('#final-message');
 const secretGift = document.querySelector('#secret-gift');
 const birthdayPopup = document.querySelector('#birthday-popup');
@@ -249,6 +256,13 @@ document.querySelector('#close-lie-popup').addEventListener('click', () => {
 });
 liePopup.addEventListener('close', () => {
   surprise.querySelectorAll('.meaning-button').forEach((button) => { button.hidden = true; });
+  questionButton.hidden = false;
+  questionButton.focus({ preventScroll: true });
+});
+questionButton.addEventListener('click', () => questionPopup.showModal());
+document.querySelector('#close-question-popup').addEventListener('click', () => questionPopup.close());
+questionPopup.addEventListener('close', () => {
+  questionButton.hidden = true;
   finalMessage.hidden = false;
   secretGift.hidden = false;
   finalMessage.focus({ preventScroll: true });
@@ -265,7 +279,7 @@ document.querySelector('#meaning-button').addEventListener('click', () => {
 document.querySelector('#close-popup').addEventListener('click', () => {
   meaningPopup.close();
 });
-[meaningPopup, confusedPopup, liePopup, birthdayPopup].forEach((popup) => popup.addEventListener('click', (event) => {
+[meaningPopup, confusedPopup, liePopup, questionPopup, birthdayPopup].forEach((popup) => popup.addEventListener('click', (event) => {
   const bounds = popup.getBoundingClientRect();
   if (event.target === popup &&
       (event.clientX < bounds.left || event.clientX > bounds.right ||
