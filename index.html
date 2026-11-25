@@ -4,8 +4,11 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>CLICK ME</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Comic+Neue:wght@400;700&amp;display=swap">
     <style>
-body { margin: 18px; background: #ffff99; font-family: "Comic Sans MS", "Comic Sans", cursive; }
+:root { --site-font: "Comic Sans MS", "Comic Sans", "Comic Neue", cursive; }
+body { margin: 18px; background: #ffff99; font-family: var(--site-font); }
+button { font-family: inherit; }
 [hidden] { display: none !important; }
 .gift-stage { text-align: center; margin: 25px auto 10px; }
 .gift-button {
@@ -21,7 +24,7 @@ body { margin: 18px; background: #ffff99; font-family: "Comic Sans MS", "Comic S
 }
 .gift-button:focus-visible { outline: 5px dashed blue; outline-offset: 4px; }
 .click-ring { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; animation: circle-gift 9s linear infinite; }
-.click-ring text { fill: #ff0000; font: 900 30px "Comic Sans MS", cursive; }
+.click-ring text { fill: #ff0000; font: 900 30px var(--site-font); }
 .gift-box {
   position: absolute;
   width: 125px;
@@ -39,7 +42,7 @@ body { margin: 18px; background: #ffff99; font-family: "Comic Sans MS", "Comic S
 .gift-bow { position: absolute; left: 50%; top: -79px; transform: translateX(-50%); font-size: 70px; z-index: 2; }
 .gift-button:hover .gift-box { transform: translate(-50%, -50%) rotate(7deg) scale(1.08); }
 .gift-surprise { padding: 20px 10px; }
-.gift-surprise h2 { margin: 0 0 20px; color: red; font: 900 clamp(28px, 6vw, 56px) "Comic Sans MS", cursive; text-shadow: 3px 3px lime; transform: rotate(-3deg); }
+.gift-surprise h2 { margin: 0 0 20px; color: red; font: 900 clamp(28px, 6vw, 56px) var(--site-font); text-shadow: 3px 3px lime; transform: rotate(-3deg); }
 .gift-surprise img { display: block; margin: auto; max-width: 90%; height: auto; border: 8px ridge #ff00d4; box-shadow: 8px 8px cyan; }
 .confetti-piece { position: fixed; z-index: 100; pointer-events: none; width: 10px; height: 16px; }
 @keyframes circle-gift { to { transform: rotate(360deg); } }
@@ -52,7 +55,7 @@ body { margin: 18px; background: #ffff99; font-family: "Comic Sans MS", "Comic S
   background: lime;
   color: blue;
   border: 6px outset yellow;
-  font: bold 20px "Comic Sans MS", cursive;
+  font: bold 20px var(--site-font);
   cursor: pointer;
   box-shadow: 5px 5px #ff00d4;
 }
@@ -68,8 +71,8 @@ body { margin: 18px; background: #ffff99; font-family: "Comic Sans MS", "Comic S
   text-align: center;
 }
 #meaning-popup::backdrop, #confused-popup::backdrop, #lie-popup::backdrop, #question-popup::backdrop, #birthday-popup::backdrop { background: rgb(0 0 0 / 75%); }
-#meaning-message, #confused-message, #lie-message, #question-message, #birthday-message { color: blue; font: bold clamp(22px, 5vw, 32px) "Comic Sans MS", cursive; text-shadow: 2px 2px lime; }
-#final-message { margin: 28px auto 0; color: blue; font: bold 24px "Comic Sans MS", cursive; }
+#meaning-message, #confused-message, #lie-message, #question-message, #birthday-message { color: blue; font: bold clamp(22px, 5vw, 32px) var(--site-font); text-shadow: 2px 2px lime; }
+#final-message { margin: 28px auto 0; color: blue; font: bold 24px var(--site-font); }
 #meaning-popup img, #birthday-popup img { display: block; width: 220px; max-width: 100%; height: auto; margin: auto; border: 4px dashed red; box-sizing: border-box; }
 .close-popup { position: absolute; top: 5px; right: 8px; color: red; background: yellow; border: 3px outset silver; font-size: 28px; cursor: pointer; }
 .confetti-rain { position: fixed; inset: 0; width: 100vw; height: 100dvh; max-width: none; max-height: none; margin: 0; padding: 0; border: 0; background: transparent; overflow: hidden; pointer-events: none; }
