@@ -4,9 +4,20 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>CLICK ME</title>
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Comic+Neue:wght@400;700&amp;display=swap">
     <style>
-:root { --site-font: "Comic Sans MS", "Comic Sans", "Comic Neue", cursive; }
+@font-face {
+  font-family: "Comic Neue";
+  src: url("./fonts/ComicNeue-Regular.ttf") format("truetype");
+  font-weight: 400;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Comic Neue";
+  src: url("./fonts/ComicNeue-Bold.ttf") format("truetype");
+  font-weight: 700;
+  font-display: swap;
+}
+:root { --site-font: "Comic Sans MS", "Comic Neue", sans-serif; }
 body { margin: 18px; background: #ffff99; font-family: var(--site-font); }
 button { font-family: inherit; }
 [hidden] { display: none !important; }
